@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-// Define types for user and profile
 interface User {
     access_token: string;
 }
@@ -14,17 +13,14 @@ interface Profile {
 }
 
 function App() {
-    // Initialize state with proper types
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
 
-    // Define login function with type safety
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => setUser(codeResponse),
         onError: (error) => console.log('Login Failed:', error),
     });
 
-    // Ensure login is a function
     const handleLoginClick = () => {
         if (typeof login === 'function') {
             login();
@@ -49,7 +45,6 @@ function App() {
         }
     }, [user]);
 
-    // Log out function
     const logOut = () => {
         googleLogout();
         setProfile(null);
@@ -71,7 +66,7 @@ function App() {
                     <button onClick={logOut}>Log out</button>
                 </div>
             ) : (
-                <button onClick={handleLoginClick}>Sign in with Google 🚀 </button>
+                <button onClick={handleLoginClick}>Sign in with Google </button>
             )}
         </div>
     );
